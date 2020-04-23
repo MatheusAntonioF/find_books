@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, TextField, InputAdornment } from '@material-ui/core';
+import { Button, TextField, InputAdornment, Icon } from '@material-ui/core';
 
 import { MenuBook, Close } from '@material-ui/icons';
 
@@ -8,48 +8,69 @@ import useStyles from './styles';
 
 import api from '../../services/api';
 
+import ListBooks from './ListBooks';
+
 export default function Home() {
   const [books, setBooks] = useState([]);
+
+  const [isLoad, setIsLoad] = useState(false);
 
   const [searchInput, setSearchInput] = useState('');
 
   const classes = useStyles();
 
-  async function fetchBooks(value){
-    setSearchInput(value)
+  async function handleSubmit(e){    
+    try{
+      e.preventDefault();
 
-    const { data } = await api.get(`/volumes?q=${searchInput}`);
+      setIsLoad(true);
 
-    setBooks(data.items)
+      const { data } = await api.get(`/volumes?q=${searchInput}`);
+
+      setBooks(data.items)
+
+    }catch(err){
+      console.error(err);
+    }
+    setIsLoad(false);
   }
+  console.log(books);
 
   return (
     <div className={classes.root}>
         <div className={classes.container}>
           <span className={classes.title}>
             <MenuBook style={{ fontSize: 50 }} /> 
-            Encontre seu livro aqui! 
+            Find your book here!
           </span>
-          <form className={classes.form} noValidate autoComplete="off">
+          <form className={classes.form} onSubmit={handleSubmit} noValidate autoComplete="off">
             <TextField 
               className={classes.input}
-              label="Procure seu livro" 
-              placeholder="Digite aqui..." 
-              helperText="Procure por nome, autor, edição..." 
-              size="small"
-              value={searchInput}
-              onChange={(e) => fetchBooks(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
-                      <Close className={classes.icon} onClick={() => setSearchInput('')} />
-                  </InputAdornment>
-                ),
+                label="Procure seu livro" 
+                placeholder="Digite aqui..." 
+                helperText="Procure por nome, autor, edição..." 
+                size="small"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                        <Close className={classes.icon} onClick={() => setSearchInput('')} />
+                    </InputAdornment>
+                  ),
               }}
             />
-            <Button variant="contained" color="primary">Pesquisar</Button>
+            <Button 
+                type="submit" 
+                variant="contained" 
+                color="primary" 
+                endIcon={<Icon>send</Icon>
+              }>
+                {isLoad ? 'Loading...' : 'Send'}
+              </Button>
           </form>
         </div>
+        {books.length >= 1 && <ListBooks books={books} />}
     </div>
   );
 }

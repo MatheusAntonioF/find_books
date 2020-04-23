@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
     fontSize: 38,
     color: theme.palette.primary.main,
 
@@ -50,6 +50,11 @@ const useStyles = makeStyles(theme => ({
   icon: {
     fill: theme.palette.secondary.light,
     cursor: 'pointer',
+  },
+  isLoad: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   }
 }));
 
