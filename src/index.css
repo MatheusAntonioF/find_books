@@ -15,3 +15,7 @@ html, body, div#root {
 body {
   -webkit-font-smoothing: antialiased !important;
 }
+
+a {
+  text-decoration: none;
+}

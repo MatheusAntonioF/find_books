@@ -19,6 +19,8 @@ export default function Home() {
 
   const classes = useStyles();
 
+
+
   async function handleSubmit(e){    
     try{
       e.preventDefault();
@@ -34,14 +36,13 @@ export default function Home() {
     }
     setIsLoad(false);
   }
-  console.log(books);
 
   return (
     <div className={classes.root}>
         <div className={classes.container}>
           <span className={classes.title}>
             <MenuBook style={{ fontSize: 50 }} /> 
-            Find your book here!
+            Encontre seu livro aqui!
           </span>
           <form className={classes.form} onSubmit={handleSubmit} noValidate autoComplete="off">
             <TextField 
@@ -55,7 +56,10 @@ export default function Home() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="start">
-                        <Close className={classes.icon} onClick={() => setSearchInput('')} />
+                        <Close className={classes.icon} onClick={() => {
+                          setSearchInput('');
+                          setBooks([]);
+                        }} />
                     </InputAdornment>
                   ),
               }}
@@ -66,7 +70,7 @@ export default function Home() {
                 color="primary" 
                 endIcon={<Icon>send</Icon>
               }>
-                {isLoad ? 'Loading...' : 'Send'}
+                {isLoad ? 'Carregando...' : 'Pesquisar'}
               </Button>
           </form>
         </div>
