@@ -11,7 +11,7 @@
 
 <p>Para buscar os livros foi utilizado a api do 
   <a href="https://developers.google.com/books/docs/overview">Google Books</a>
-  juntamente com o <a href="https://material-ui.com/pt/getting-started/">Material UI</a> para estilizar a aplicação.
+  juntamente com o <a href="https://material-ui.com/pt/getting-started/installation/">Material UI</a> para estilizar a aplicação.
  </p>
 
 ![image](https://user-images.githubusercontent.com/40186689/80671073-24bbf980-8a7f-11ea-979c-b8183e0b2bd7.png)
