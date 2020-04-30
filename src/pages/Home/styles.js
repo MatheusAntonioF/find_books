@@ -1,28 +1,29 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     height: '100%',
-
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height: '25%',
+
+    height: 'auto',
+
     paddingBottom: 15,
     backgroundColor: '#ede7f6',
+
     boxShadow: '0px 0px 5px 0px rgba(64,63,64,1)',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
-    
   },
   title: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 5,
     fontSize: 38,
     color: theme.palette.primary.main,
 
@@ -58,4 +59,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default useStyles;
+export const useReponsivity = makeStyles(theme => ({
+  respTitle: {
+    margin: 20,
+  },
+   respForm: {
+     marginRight: 10,
+   }
+}))

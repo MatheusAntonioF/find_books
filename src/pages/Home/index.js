@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
-import { Button, TextField, InputAdornment, Icon } from '@material-ui/core';
+import { Button, TextField, InputAdornment, Icon, useMediaQuery } from '@material-ui/core';
 
 import { MenuBook, Close } from '@material-ui/icons';
 
-import useStyles from './styles';
+import clsx from 'clsx';
+
+import { useStyles, useReponsivity } from './styles';
 
 import api from '../../services/api';
 
@@ -19,6 +21,10 @@ export default function Home() {
 
   const classes = useStyles();
 
+  const { respTitle, respForm } = useReponsivity();
+
+  const matchedDisplay = useMediaQuery(theme => theme.breakpoints.between('xs', 'sm'));
+console.log(matchedDisplay);
 
 
   async function handleSubmit(e){    
@@ -40,11 +46,16 @@ export default function Home() {
   return (
     <div className={classes.root}>
         <div className={classes.container}>
-          <span className={classes.title}>
-            <MenuBook style={{ fontSize: 50 }} /> 
+          <span className={clsx(classes.title, matchedDisplay && respTitle)}>
             Encontre seu livro aqui!
+            <MenuBook style={{ fontSize: 50 }} /> 
           </span>
-          <form className={classes.form} onSubmit={handleSubmit} noValidate autoComplete="off">
+          <form 
+            className={clsx(classes.form, matchedDisplay && respForm )} 
+            onSubmit={handleSubmit} 
+            noValidate 
+            autoComplete="off"
+          >
             <TextField 
               className={classes.input}
                 label="Procure seu livro" 
@@ -70,11 +81,16 @@ export default function Home() {
                 color="primary" 
                 endIcon={<Icon>send</Icon>
               }>
-                {isLoad ? 'Carregando...' : 'Pesquisar'}
+                {isLoad ? '...' : 'Pesquisar'}
               </Button>
           </form>
         </div>
-        {books.length >= 1 && <ListBooks books={books} />}
+        {books.length >= 1 && 
+          <ListBooks 
+            books={books} 
+            matchedDisplay={matchedDisplay} 
+          />
+        }
     </div>
   );
 }

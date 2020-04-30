@@ -12,9 +12,10 @@ import {
   Link,
 } from '@material-ui/core';
 
-export default function ListBooks({ books }) {
+export default function ListBooks({ books, matchedDisplay }) {
+
   const classes = useStyles();
-  console.log(books);
+console.log(matchedDisplay);
 
   return (
     <div className={classes.containerBooks}>
@@ -27,7 +28,15 @@ export default function ListBooks({ books }) {
           }
 
           return (
-            <Grid item xs={4} key={book.id}>
+            <Grid 
+              item 
+              xs={matchedDisplay ? 12 : 4} 
+              key={book.id} 
+              container 
+              direction={matchedDisplay && 'column'} 
+              justify={matchedDisplay && 'center'} 
+              alignItems={matchedDisplay && 'stretch'}
+            >
               <Card className={classes.profileBook} elevation={3}>
                 <CardActionArea className={classes.cardArea}>
                   <CardMedia 
